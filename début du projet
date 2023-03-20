@@ -29,3 +29,59 @@ COULEUR_FOND = "#4d4d4d"  # Couleur de fond de la fenêtre
 COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
 COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
 
+grille = [[0] * HAUTEUR_GRILLE for _ in range(LARGEUR_GRILLE)]
+joueur_courant = 1
+fin_de_jeu = False
+# Fonction pour détecter si le jeu est fini
+def detecter_fin_de_jeu():
+    for colonne in range(LARGEUR_GRILLE):
+        for ligne in range(HAUTEUR_GRILLE - 3):
+            if grille[colonne][ligne] == grille[colonne][ligne + 1] == grille[colonne][ligne + 2] == grille[colonne][ligne + 3] and grille[colonne][ligne] != 0:
+                return grille[colonne][ligne]
+    for colonne in range(LARGEUR_GRILLE - 3):
+        for ligne in range(HAUTEUR_GRILLE):
+            if grille[colonne][ligne] == grille[colonne + 1][ligne] == grille[colonne + 2][ligne] == grille[colonne + 3][ligne] and grille[colonne][ligne] != 0:
+                return grille[colonne][ligne]
+    for colonne in range(LARGEUR_GRILLE - 3):
+        for ligne in range(3, HAUTEUR_GRILLE):
+            if grille[colonne][ligne] == grille[colonne + 1][ligne - 1] == grille[colonne + 2][ligne - 2] == grille[colonne + 3][ligne - 3] and grille[colonne][ligne] != 0:
+                return grille[colonne][ligne]
+    for colonne in range(LARGEUR_GRILLE - 3):
+        for ligne in range(HAUTEUR_GRILLE - 3):
+            if grille[colonne][ligne] == grille[colonne + 1][ligne + 1] == grille[colonne + 2][ligne + 2] == grille[colonne + 3][ligne + 3] and grille[colonne][ligne] != 0:
+                return grille[colonne][ligne]
+    
+    return 0
+def detecter_match_nul():
+    for colonne in range(LARGEUR_GRILLE):
+        for ligne in range(HAUTEUR_GRILLE):
+            if grille[colonne][ligne] == 0:
+                return False
+    return True
+# Fonction pour insérer un jeton dans la grille
+def inserer_jeton(colonne):
+    global joueur_courant, fin_de_jeu
+    
+    if not fin_de_jeu:
+        ligne = HAUTEUR_GRILLE - 1
+        while ligne >= 0 and grille[colonne][ligne] != 0:
+            ligne -= 1
+        if ligne >= 0:
+            grille[colonne][ligne] = joueur_courant
+            if joueur_courant == 1:
+                couleur = COULEUR_JOUEUR_1
+                joueur_courant = 2
+            else:
+                couleur = COULEUR_JOUEUR_2
+                joueur_courant = 1
+            canvas.create_oval(colonne * TAILLE_JETON, ligne * TAILLE_JETON, (colonne + 1) * TAILLE_JETON, (ligne + 1) * TAILLE_JETON, fill=couleur)
+            resultat = detecter_fin_de_jeu()
+            if resultat != 0:
+                fin_de_jeu = True
+                if resultat == 1:
+                    canvas.create_text(LARGEUR_GRILLE * TAILLE_JETON // 2, HAUTEUR_GRILLE * TAILLE_JETON // 2, text="Joueur 1 a gagné !", font=("Arial", 32), fill=COULEUR_JOUEUR_1)
+                else:
+                    canvas.create_text(LARGEUR_GRILLE * TAILLE_JETON // 2, HAUTEUR_GRILLE * TAILLE_JETON // 2, text="Joueur 2 a gagné !", font=("Arial", 32), fill=COULEUR_JOUEUR_2)
+            elif detecter_match_nul():
+                fin_de_jeu = True
+                canvas.create_text(LARGEUR_GRILLE * TAILLE_JETON // 2, HAUTEUR_GRILLE * TAILLE_JETON // 2, text="Match nul !", font=("Arial", 32), fill="white")
