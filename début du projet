@@ -1,0 +1,31 @@
+def demande_couleur():
+    """Demande à l'utilisateur de choisir sa couleur et renvoie la couleur choisie."""
+    couleur = None
+    while couleur not in ['R', 'J']:
+        couleur = input("Veuillez choisir votre couleur (Rouge-R ou Jaune-J): ").upper()
+    return couleur
+
+# Demander la couleur des joueurs
+couleur_joueur1 = demande_couleur()
+if couleur_joueur1 == 'R':
+    couleur_joueur1 = "#ff1a1a"
+    couleur_joueur2 = "#ffff1a"
+else:
+    couleur_joueur1 = "#ffff1a"
+    couleur_joueur2 = "#ff1a1a"
+    
+
+
+# Afficher les couleurs choisies
+print(f"Joueur 1: {couleur_joueur1}")
+print(f"Joueur 2: {couleur_joueur2}")
+
+
+# Définition des constantes
+TAILLE_JETON = 80  # Taille en pixels des jetons
+LARGEUR_GRILLE = 7  # Nombre de colonnes du jeu
+HAUTEUR_GRILLE = 6  # Nombre de lignes du jeu
+COULEUR_FOND = "#4d4d4d"  # Couleur de fond de la fenêtre
+COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
+COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
+
