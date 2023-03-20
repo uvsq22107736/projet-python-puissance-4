@@ -29,6 +29,7 @@ COULEUR_FOND = "#4d4d4d"  # Couleur de fond de la fenêtre
 COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
 COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
 
+# Initialisation du jeu
 grille = [[0] * HAUTEUR_GRILLE for _ in range(LARGEUR_GRILLE)]
 joueur_courant = 1
 fin_de_jeu = False
