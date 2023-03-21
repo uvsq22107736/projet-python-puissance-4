@@ -1,5 +1,3 @@
-import tkinter as tk
-
 def demande_couleur():
     """Demande à l'utilisateur de choisir sa couleur et renvoie la couleur choisie."""
     couleur = None
@@ -31,7 +29,6 @@ COULEUR_FOND = "#4d4d4d"  # Couleur de fond de la fenêtre
 COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
 COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
 
-# Initialisation du jeu
 grille = [[0] * HAUTEUR_GRILLE for _ in range(LARGEUR_GRILLE)]
 joueur_courant = 1
 fin_de_jeu = False
@@ -88,3 +85,24 @@ def inserer_jeton(colonne):
             elif detecter_match_nul():
                 fin_de_jeu = True
                 canvas.create_text(LARGEUR_GRILLE * TAILLE_JETON // 2, HAUTEUR_GRILLE * TAILLE_JETON // 2, text="Match nul !", font=("Arial", 32), fill="white")
+
+# Création de la fenêtre et du canvas
+fenetre = tk.Tk()
+fenetre.title("Puissance 4")
+canvas = tk.Canvas(fenetre, width=LARGEUR_GRILLE * TAILLE_JETON, height=HAUTEUR_GRILLE * TAILLE_JETON, bg=COULEUR_FOND)
+canvas.pack()
+
+# Création des cercles de la grille
+for colonne in range(LARGEUR_GRILLE):
+    for ligne in range(HAUTEUR_GRILLE):
+        canvas.create_oval(colonne * TAILLE_JETON, ligne * TAILLE_JETON, (colonne + 1) * TAILLE_JETON, (ligne + 1) * TAILLE_JETON, fill="white")
+
+# Gestionnaire d'événements pour cliquer sur la grille
+def clic_grille(event):
+    colonne = event.x // TAILLE_JETON
+    inserer_jeton(colonne)
+
+canvas.bind("<Button-1>", clic_grille)
+
+# Boucle principale pour afficher la fenêtre en continu
+fenetre.mainloop()
