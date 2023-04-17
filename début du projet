@@ -1,3 +1,8 @@
+import tkinter as tk
+import tkinter.messagebox as messagebox
+import random
+
+
 def demande_couleur():
     """Demande à l'utilisateur de choisir sa couleur et renvoie la couleur choisie."""
     couleur = None
@@ -29,9 +34,14 @@ COULEUR_FOND = "#4d4d4d"  # Couleur de fond de la fenêtre
 COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
 COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
 
+# Initialisation du jeu
 grille = [[0] * HAUTEUR_GRILLE for _ in range(LARGEUR_GRILLE)]
 joueur_courant = 1
 fin_de_jeu = False
+
+joueur_vs_IA = demande_adversaire()
+
+
 # Fonction pour détecter si le jeu est fini
 def detecter_fin_de_jeu():
     for colonne in range(LARGEUR_GRILLE):
@@ -52,12 +62,21 @@ def detecter_fin_de_jeu():
                 return grille[colonne][ligne]
     
     return 0
+    
 def detecter_match_nul():
     for colonne in range(LARGEUR_GRILLE):
         for ligne in range(HAUTEUR_GRILLE):
             if grille[colonne][ligne] == 0:
                 return False
     return True
+
+def jouer_coup_aleatoire():
+ 
+    colonne = random.randint(0, LARGEUR_GRILLE - 1)
+    
+    inserer_jeton(colonne)
+    
+
 # Fonction pour insérer un jeton dans la grille
 def inserer_jeton(colonne):
     global joueur_courant, fin_de_jeu
@@ -85,6 +104,9 @@ def inserer_jeton(colonne):
             elif detecter_match_nul():
                 fin_de_jeu = True
                 canvas.create_text(LARGEUR_GRILLE * TAILLE_JETON // 2, HAUTEUR_GRILLE * TAILLE_JETON // 2, text="Match nul !", font=("Arial", 32), fill="white")
+            elif joueur_vs_IA and joueur_courant == 2:
+                
+                jouer_coup_aleatoire()  # l'IA joue un coup aléatoire
 
 # Création de la fenêtre et du canvas
 fenetre = tk.Tk()
