@@ -1,5 +1,11 @@
-# projet-python-puissance-4
-Voici la répartition des tâches sur le projet d'informatique en langage Python:
-Dans la première partie on va crée la couleur et la tailles des jetons tout en demandant aux joueurs quel couleurs il veut prendre.
-Dans la seconde partie on va crée la logique du jeu  à travers le code
-Et dans la troisième partie, on va crée la fenêtre avec tkinter.
+Licence 1 BI TD 3 
+Cyprien HAMEL 
+Aristan HERMAN 
+Baptiste EVRARD 
+
+
+Voici la répartition des tâches sur le projet d'informatique en langage Python : 
+- Dans la première partie, on va créer la couleur et les dimensions des jets et de la grille tout en demandant au joueur quelle couleur il veut choisir. 
+- Dans la seconde partie, on va créer la logique du jeu en elle-même et on va y retrouver la fonction pour détecter si le jeu est fini ainsi que la fonction permettant d'insérer un jeton dans la grille. 
+- Dans la dernière partie, on va créer la fenêtre du canevas ainsi qu'une boucle permettant de générer les cerles de la grille. La dernière fonction fait en sorte qu'un jeton s'insére dans la grille quand on clique sur une colonne. 
+- Enfin, on retrouve la boucle mainloop qui permet d'afficher la fenêtre en continu.
