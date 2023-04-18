@@ -1,7 +1,13 @@
+# Ces trois lignes sont des instructions d'importation de modules Python.
+# La première ligne importe le module tkinter sous le nom abrégé tk, qui est une bibliothèque standard de Python pour créer des interfaces graphiques utilisateur (GUI).
+# La deuxième ligne importe le sous-module messagebox de tkinter sous le nom messagebox, qui est utilisé pour afficher des boîtes de dialogue dans l'interface graphique.
+
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import random
 
+# Cela définit une fonction appelée demande_couleur() qui demande à l'utilisateur de choisir une couleur en entrée (Rouge ou Jaune) en utilisant la fonction input() de Python. Cette fonction renvoie la couleur choisie en convertissant la chaîne de caractères en majuscule.
+# La fonction inclut également une boucle while pour s'assurer que l'utilisateur ne peut entrer que les couleurs valides (R ou J). Si l'utilisateur entre une couleur différente de R ou J, la boucle continuera de demander une couleur valide jusqu'à ce que l'utilisateur en entre une.
 
 def demande_couleur():
     """Demande à l'utilisateur de choisir sa couleur et renvoie la couleur choisie."""
@@ -9,6 +15,9 @@ def demande_couleur():
     while couleur not in ['R', 'J']:
         couleur = input("Veuillez choisir votre couleur (Rouge-R ou Jaune-J): ").upper()
     return couleur
+
+# Cette fonction demande à l'utilisateur s'il souhaite jouer contre l'ordinateur ou contre un autre joueur. Elle utilise la boîte de dialogue messagebox.askquestion de tkinter pour poser la question et obtenir la réponse de l'utilisateur. Si l'utilisateur clique sur "Yes", la fonction retourne True, sinon elle retourne False.
+# Ces lignes de code permettent de demander à l'utilisateur de choisir la couleur pour chaque joueur et d'assigner une couleur spécifique à chaque joueur.
 
 def demande_adversaire():
     """Demande à l'utilisateur s'il veut jouer contre l'IA ou contre un autre joueur."""
@@ -20,7 +29,9 @@ def demande_adversaire():
         joueur_vs_IA = False
         return joueur_vs_IA
 
-# Demander la couleur des joueurs
+# La fonction demande_couleur() est appelée pour demander à l'utilisateur de choisir la couleur pour le joueur 1. Si l'utilisateur entre "R", la couleur du joueur 1 est définie comme rouge (#ff1a1a) et la couleur du joueur 2 est définie comme jaune (#ffff1a). Si l'utilisateur entre "J", les couleurs sont inversées et la couleur du joueur 1 est définie comme jaune et celle du joueur 2 est définie comme rouge.
+# Ces lignes de code servent à afficher les couleurs choisies par les joueurs. Le joueur 1 a choisi la couleur 'R' ou 'J', et en fonction de cela, la variable 'couleur_joueur1' est affectée à une couleur spécifique en code hexadécimal. La variable 'couleur_joueur2' est affectée à la couleur opposée.
+
 couleur_joueur1 = demande_couleur()
 if couleur_joueur1 == 'R':
     couleur_joueur1 = "#ff1a1a"
@@ -30,13 +41,15 @@ else:
     couleur_joueur2 = "#ff1a1a"
     
 
+# Ensuite, ces variables sont affichées à l'aide de la fonction 'print()' pour informer les joueurs des couleurs choisies pour eux-mêmes et leur adversaire.
 
-# Afficher les couleurs choisies
 print(f"Joueur 1: {couleur_joueur1}")
 print(f"Joueur 2: {couleur_joueur2}")
 
 
 # Définition des constantes
+# Cela correspond à l'initialisation des variables nécessaires au fonctionnement du jeu, telles que la grille, le joueur courant et l'état de fin de jeu
+
 TAILLE_JETON = 80  # Taille en pixels des jetons
 LARGEUR_GRILLE = 7  # Nombre de colonnes du jeu
 HAUTEUR_GRILLE = 6  # Nombre de lignes du jeu
@@ -45,15 +58,27 @@ COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
 COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
 
 # Initialisation du jeu
+# La ligne grille = [[0] * HAUTEURGRILLE for  in range(LARGEUR_GRILLE)] crée une liste de listes à deux dimensions représentant la grille du jeu. Chaque élément de la grille est initialisé à 0.
+
 grille = [[0] * HAUTEUR_GRILLE for _ in range(LARGEUR_GRILLE)]
+
+# joueur_courant est initialisé à 1, car le joueur 1 commence toujours en premier dans le Puissance 4.
+
 joueur_courant = 1
+
+# fin_de_jeu est initialisé à False, car le jeu n'est pas encore terminé.
+
 fin_de_jeu = False
+
+# joueur_vs_IA = demande_adversaire() demande à l'utilisateur s'il veut jouer contre l'IA ou contre un autre joueur, et stocke la réponse dans la variable joueur_vs_IA. Cette variable sera utilisée plus tard pour déterminer si l'IA doit jouer ou non
 
 joueur_vs_IA = demande_adversaire()
 
 # Fonction pour détecter si le jeu est fini
+# La première fonction, detecter_fin_de_jeu(), permet de détecter si le jeu est fini, c'est-à-dire si un joueur a aligné quatre jetons verticalement, horizontalement ou diagonalement. Si c'est le cas, la fonction renvoie le numéro du joueur gagnant (1 ou 2), sinon elle renvoie 0.
+
 def detecter_fin_de_jeu():
-    for colonne in range(LARGEUR_GRILLE):
+for colonne in range(LARGEUR_GRILLE):
         for ligne in range(HAUTEUR_GRILLE - 3):
             if grille[colonne][ligne] == grille[colonne][ligne + 1] == grille[colonne][ligne + 2] == grille[colonne][ligne + 3] and grille[colonne][ligne] != 0:
                 return grille[colonne][ligne]
@@ -72,6 +97,8 @@ def detecter_fin_de_jeu():
     
     return 0
 
+# La deuxième fonction, detecter_match_nul(), permet de détecter s'il y a match nul, c'est-à-dire si toutes les cases de la grille sont remplies sans qu'aucun joueur n'ait aligné quatre jetons. Si c'est le cas, la fonction renvoie True, sinon elle renvoie False
+
 def detecter_match_nul():
     for colonne in range(LARGEUR_GRILLE):
         for ligne in range(HAUTEUR_GRILLE):
@@ -79,15 +106,15 @@ def detecter_match_nul():
                 return False
     return True
 
+# La troisième fonction, jouer_coup_aleatoire(), permet à l'IA de jouer un coup aléatoire en choisissant une colonne aléatoire dans laquelle insérer un jeton.
 
 def jouer_coup_aleatoire():
- 
     colonne = random.randint(0, LARGEUR_GRILLE - 1)
-    
     inserer_jeton(colonne)
 
-
+# Ce code définit une fonction appelée inserer_jeton qui prend en entrée la colonne dans laquelle le joueur actuel veut insérer un jeton. Le code vérifie d'abord si le jeu n'est pas terminé, puis trouve la première case vide dans la colonne et y insère le jeton correspondant au joueur actuel. Ensuite, le code vérifie si la partie est terminée, soit si un joueur a gagné, soit si la grille est remplie et il y a match nul, soit si c'est au tour de l'IA de jouer (si le mode joueur contre IA est activé) et dans ce cas, l'IA joue un coup aléatoire.
 # Fonction pour insérer un jeton dans la grille
+
 def inserer_jeton(colonne):
     global joueur_courant, fin_de_jeu
     
@@ -118,20 +145,30 @@ def inserer_jeton(colonne):
                 
                 jouer_coup_aleatoire()  # l'IA joue un coup aléatoire
 
-
+# Ces deux lignes de code créent une fenêtre graphique avec un canvas, qui est une zone rectangulaire dans laquelle on peut dessiner et afficher des graphismes. La première ligne crée la fenêtre principale avec le titre "Puissance 4", et la deuxième ligne crée un canvas de taille LARGEUR_GRILLE * TAILLE_JETON (largeur) et HAUTEUR_GRILLE * TAILLE_JETON (hauteur), avec une couleur de fond définie par la constante COULEUR_FOND. Ensuite, le canvas est ajouté à la fenêtre principale avec la méthode grid().
 # Création de la fenêtre et du canvas
+
 fenetre = tk.Tk()
 fenetre.title("Puissance 4")
 canvas = tk.Canvas(fenetre, width=LARGEUR_GRILLE * TAILLE_JETON, height=HAUTEUR_GRILLE * TAILLE_JETON, bg=COULEUR_FOND)
 canvas.pack()
 
-
+# Cela crée les cercles blancs pour chaque emplacement de la grille. La grille est représentée sous forme de cercles alignés sur des colonnes et des rangées, et cette boucle crée un cercle blanc à chaque intersection de rangée et de colonne.
 # Création des cercles de la grille
+
 for colonne in range(LARGEUR_GRILLE):
     for ligne in range(HAUTEUR_GRILLE):
         canvas.create_oval(colonne * TAILLE_JETON, ligne * TAILLE_JETON, (colonne + 1) * TAILLE_JETON, (ligne + 1) * TAILLE_JETON, fill="white")
 
-# Gestionnaire d'événements pour cliquer sur la grille
+# Ce code définit une fonction appelée clic_grille qui est le gestionnaire d'événements associé au clic de souris sur la grille.
+# La fonction prend en entrée un événement event qui contient les informations sur le clic de souris (position, bouton cliqué, etc.).
+# La fonction utilise la position x de l'événement pour déterminer la colonne de la grille sur laquelle le joueur a cliqué (colonne = event.x // TAILLE_JETON).
+# Ensuite, la fonction appelle la fonction inserer_jeton(colonne) pour insérer un jeton dans cette colonne.
+# Cela crée un gestionnaire d'événements qui se déclenche lorsque l'utilisateur clique sur le canvas (zone de la grille de jeu), et appelle la fonction clic_grille en lui passant l'événement correspondant.
+# La fonction clic_grille calcule la colonne dans laquelle l'utilisateur a cliqué en divisant la coordonnée horizontale de l'événement par la taille d'un jeton. Ensuite, elle appelle la fonction inserer_jeton en lui passant la colonne correspondante pour insérer un jeton dans la grille. Ceci est une fonction écrite en Python qui permet d'insérer un jeton dans la grille pour le jeu de Puissance 4. Elle prend en entrée le numéro de la colonne et met à jour l'état du jeu en ajoutant le jeton du joueur à la ligne la plus basse disponible dans cette colonne. Ensuite, elle vérifie s'il y a une victoire ou un match nul et met à jour l'état du jeu en conséquence.
+# Si le jeu n'est pas terminé, la fonction alterne entre les joueurs (joueur 1 et joueur 2) et change la couleur du jeton pour correspondre à la couleur du joueur courant.
+# Si le jeu se joue contre une IA, la fonction vérifie si c'est au tour de l'IA et ne procède à son mouvement que s'il s'agit de son tour. 
+
 def clic_grille(event):
     colonne = event.x // TAILLE_JETON
     inserer_jeton(colonne)
@@ -139,5 +176,6 @@ def clic_grille(event):
 canvas.bind("<Button-1>", clic_grille)
 
 # Boucle principale pour afficher la fenêtre en continu
+# Cela lance la boucle principale de la fenêtre, qui écoute les événements utilisateur (par exemple, les clics de souris) et met à jour l'affichage en conséquence. Cette boucle continuera jusqu'à ce que la fenêtre soit fermée par l'utilisateur ou que le programme soit arrêté
 fenetre.mainloop()
 
