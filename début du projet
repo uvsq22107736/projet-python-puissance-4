@@ -10,6 +10,16 @@ def demande_couleur():
         couleur = input("Veuillez choisir votre couleur (Rouge-R ou Jaune-J): ").upper()
     return couleur
 
+def demande_adversaire():
+    """Demande à l'utilisateur s'il veut jouer contre l'IA ou contre un autre joueur."""
+    choix = messagebox.askquestion("Jouer contre l'IA ?", "Voulez-vous jouer contre l'IA ?")
+    if choix == "yes":
+        joueur_vs_IA = True
+        return joueur_vs_IA
+    else:
+        joueur_vs_IA = False
+        return joueur_vs_IA
+
 # Demander la couleur des joueurs
 couleur_joueur1 = demande_couleur()
 if couleur_joueur1 == 'R':
@@ -30,7 +40,7 @@ print(f"Joueur 2: {couleur_joueur2}")
 TAILLE_JETON = 80  # Taille en pixels des jetons
 LARGEUR_GRILLE = 7  # Nombre de colonnes du jeu
 HAUTEUR_GRILLE = 6  # Nombre de lignes du jeu
-COULEUR_FOND = "#4d4d4d"  # Couleur de fond de la fenêtre
+COULEUR_FOND = "#0059A7" # Bleu foncé
 COULEUR_JOUEUR_1 = couleur_joueur1  # Couleur des jetons du joueur 1
 COULEUR_JOUEUR_2 = couleur_joueur2  # Couleur des jetons du joueur 2
 
@@ -40,7 +50,6 @@ joueur_courant = 1
 fin_de_jeu = False
 
 joueur_vs_IA = demande_adversaire()
-
 
 # Fonction pour détecter si le jeu est fini
 def detecter_fin_de_jeu():
@@ -62,7 +71,7 @@ def detecter_fin_de_jeu():
                 return grille[colonne][ligne]
     
     return 0
-    
+
 def detecter_match_nul():
     for colonne in range(LARGEUR_GRILLE):
         for ligne in range(HAUTEUR_GRILLE):
@@ -70,12 +79,13 @@ def detecter_match_nul():
                 return False
     return True
 
+
 def jouer_coup_aleatoire():
  
     colonne = random.randint(0, LARGEUR_GRILLE - 1)
     
     inserer_jeton(colonne)
-    
+
 
 # Fonction pour insérer un jeton dans la grille
 def inserer_jeton(colonne):
@@ -108,11 +118,13 @@ def inserer_jeton(colonne):
                 
                 jouer_coup_aleatoire()  # l'IA joue un coup aléatoire
 
+
 # Création de la fenêtre et du canvas
 fenetre = tk.Tk()
 fenetre.title("Puissance 4")
 canvas = tk.Canvas(fenetre, width=LARGEUR_GRILLE * TAILLE_JETON, height=HAUTEUR_GRILLE * TAILLE_JETON, bg=COULEUR_FOND)
 canvas.pack()
+
 
 # Création des cercles de la grille
 for colonne in range(LARGEUR_GRILLE):
@@ -128,3 +140,4 @@ canvas.bind("<Button-1>", clic_grille)
 
 # Boucle principale pour afficher la fenêtre en continu
 fenetre.mainloop()
+
