@@ -11,5 +11,5 @@ Voici la répartition des tâches sur le projet d'informatique en langage Python
 - Enfin, on retrouve la boucle mainloop qui permet d'afficher la fenêtre en continu.
 
 
-Les explications claires et précise ont été ajouter dans le code avec "#".
+Les explications claires et précise ont été ajouter dans le code avec "#" dans le fichier "début du projet".
 J'ai aussi rajouter un docstring d'un résumé de ce que fais le code (début du projet).
