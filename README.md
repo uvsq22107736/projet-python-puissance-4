@@ -12,4 +12,4 @@ Voici la répartition des tâches sur le projet d'informatique en langage Python
 
 
 Les explications claires et précise ont été ajouter dans le code avec "#".
-J'ai aussi rajouter un docstring d'un résumé de ce que fais le code.
+J'ai aussi rajouter un docstring d'un résumé de ce que fais le code(début du projet).
