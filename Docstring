@@ -1,0 +1,22 @@
+Ce module permet de jouer au Puissance 4. Les joueurs peuvent choisir leur couleur et jouer contre un autre joueur ou contre l'IA.
+
+Le module importe les modules Python tkinter et random pour créer une interface graphique utilisateur et générer des nombres aléatoires.
+
+Fonctions :
+- demande_couleur() : demande à l'utilisateur de choisir sa couleur et renvoie la couleur choisie.
+- demande_adversaire() : demande à l'utilisateur s'il veut jouer contre l'IA ou contre un autre joueur.
+
+Constantes :
+- TAILLE_JETON : taille en pixels des jetons
+- LARGEUR_GRILLE : nombre de colonnes du jeu
+- HAUTEUR_GRILLE : nombre de lignes du jeu
+- COULEUR_FOND : couleur de fond du jeu
+- COULEUR_JOUEUR_1 : couleur des jetons du joueur 1
+- COULEUR_JOUEUR_2 : couleur des jetons du joueur 2
+
+Initialisation :
+Le module initialise la grille du jeu, le joueur courant et l'état de fin de jeu.
+
+- grille : liste de listes à deux dimensions représentant la grille du jeu, initialisée à 0.
+- joueur_courant : joueur courant initialisé à 1.
+- fin_de_jeu : état de fin de jeu initialisé à False.
